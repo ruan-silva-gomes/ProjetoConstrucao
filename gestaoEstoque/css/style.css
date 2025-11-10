@@ -1,49 +1,53 @@
-  /* Estilos específicos para esta página de Gestão */
-        .search-area {
+  /* Estilos específicos para esta página */
+        .forms-container {
             display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            align-items: center;
+            gap: 40px;
+            justify-content: space-around;
+            margin-top: 30px;
         }
-        .search-area input {
-            padding: 8px 12px;
-            border-radius: 4px;
+        .form-box {
+            background-color: #3f3f3f; /* Fundo levemente mais claro */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 45%;
+        }
+        .form-box h3 {
+            color: #d8c8c8;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+        }
+        .form-box input[type="text"],
+        .form-box input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
             border: 1px solid #555;
+            border-radius: 4px;
             background-color: #4a4a4a;
             color: white;
-            width: 300px;
         }
-        .search-area button {
-            padding: 8px 15px;
+        .form-box button {
+            width: 100%;
+            padding: 10px;
             border: none;
             border-radius: 4px;
-            background-color: #d8c8c8;
-            color: #333;
             font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
-
-        /* Tabela de Estoque */
-        .stock-table th, .stock-table td {
-            text-align: left;
-            vertical-align: middle;
-        }
-        .stock-table th {
-            background-color: #555;
-            color: #d8c8c8;
-        }
-        .stock-table td {
-            background-color: #3f3f3f;
+        #btn-entrada {
+            background-color: #4CAF50; /* Verde */
             color: white;
         }
-        
-        /* Destaque para baixo estoque */
-        .low-stock {
-            background-color: #ffcccc !important; /* Fundo vermelho claro */
-            color: #cc0000 !important; /* Texto vermelho escuro */
-            font-weight: bold;
+        #btn-entrada:hover {
+            background-color: #45a049;
         }
-        
-        .stock-status-cell {
-            font-weight: bold;
+        #btn-saida {
+            background-color: #f44336; /* Vermelho */
+            color: white;
+        }
+        #btn-saida:hover {
+            background-color: #da190b;
         }

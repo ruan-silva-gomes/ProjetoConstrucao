@@ -1,9 +1,10 @@
 <?php
 // A base PHP para a lógica de back-end fica aqui.
-// Por enquanto, apenas o cabeçalho de PHP está incluso.
+// Esta seção será usada mais tarde para buscar e exibir os dados do banco.
 
-// include_once '../conexao.php'; // Removido por enquanto
-// if ($_SERVER["REQUEST_METHOD"] == "POST") { ... } // Removido por enquanto
+// include_once '../conexao.php'; 
+// $produtos = []; // Array que conteria os dados buscados
+// ... lógica para buscar produtos e quantidade de estoque ...
 ?>
 
 <!DOCTYPE html>
@@ -11,13 +12,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Constru Casa - Entrada e Saída</title>
+    <title>Constru Casa - Gestão de Estoque</title>
     
     <link rel="stylesheet" href="../paginainicial/css/style.css"> 
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
+    <style>
+        /* Estilos específicos para a área de Gestão de Estoque */
+        .search-area {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+        .search-area input {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background-color: #4a4a4a;
+            color: white;
+            width: 300px;
+        }
+        .search-area button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #d8c8c8;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Tabela de Estoque */
+        .stock-table th, .stock-table td {
+            text-align: left;
+            vertical-align: middle;
+        }
+        .stock-table th {
+            background-color: #555;
+            color: #d8c8c8;
+        }
+        .stock-table td {
+            /* Mantém a cor do background do dashboard, ajustando para a tabela */
+            background-color: #3f3f3f; 
+            color: white;
+        }
+        
+        /* Destaque para baixo estoque (será aplicado via PHP ou JavaScript futuramente) */
+        .low-stock {
+            background-color: #f8d7da !important; /* Fundo vermelho claro */
+            color: #721c24 !important; /* Texto vermelho escuro */
+            font-weight: bold;
+        }
+        
+        .stock-status-cell {
+            font-weight: bold;
+        }
+
+    </style>
 </head> 
  
 <body>
@@ -39,56 +93,62 @@
         <main class="main-content">
             <nav class="sidebar">
                 <ul>
-                   <li class="menu-item">
+                    <li class="menu-item">
                         <a href="../paginainicial/index.php"><i class=" bi bi-house-door"></i> Pagina Inicial</a>
                     </li>
                     <li class="menu-item">
-                        <a href="http://localhost/aula_PHP/ProjetoConstrucao/cadastroProduto/"><i class="bi bi-tools"></i> Cadastro de produtos</a>
+                        <a href="../cadastroProduto/index.php"><i class="bi bi-person-fill"></i> Cadastro de Produtos</a>
                     </li>
                     <li class="menu-item">
-                        <a href="http://localhost/aula_PHP/ProjetoConstrucao/entradaSaida/"><i class="bi bi-boxes"></i> entrada e saída dos produtos</a>
+                        <a href="../entradaSaida/index.php"><i class="bi bi-boxes"></i> entrada e saída dos produtos</a>
                     </li>
+                   
                 </ul>
             </nav>
 
             <section class="content-area">
-                <h1 style="color: white; margin-bottom: 20px;">Gestão de Movimentação de Estoque</h1>
+                <h1 style="color: white; margin-bottom: 20px;">Relatório de Estoque Atual</h1>
                 
-                <div class="forms-container">
-                    
-                    <div class="form-box">
-                        <h3>Entrada de Produtos</h3>
-                        <form method="post" action=""> 
-                            <label for="codigo_entrada">Código/Referência do Produto:</label>
-                            <input type="text" id="codigo_entrada" name="codigo_entrada" required>
-                            
-                            <label for="quantidade_entrada">Quantidade Recebida:</label>
-                            <input type="number" id="quantidade_entrada" name="quantidade_entrada" min="1" required>
-                            
-                            <label for="nota_fiscal">Nota Fiscal (Opcional):</label>
-                            <input type="text" id="nota_fiscal" name="nota_fiscal">
-                            
-                            <button type="submit" name="btn_entrada_submit" id="btn-entrada">Registrar Entrada</button>
-                        </form>
-                    </div>
-
-                    <div class="form-box">
-                        <h3>Saída de Produtos</h3>
-                         <form method="post" action=""> 
-                            <label for="codigo_saida">Código/Referência do Produto:</label>
-                            <input type="text" id="codigo_saida" name="codigo_saida" required>
-                            
-                            <label for="quantidade_saida">Quantidade Vendida/Utilizada:</label>
-                            <input type="number" id="quantidade_saida" name="quantidade_saida" min="1" required>
-                            
-                            <label for="destino_saida">Destino/Cliente (Opcional):</label>
-                            <input type="text" id="destino_saida" name="destino_saida">
-                            
-                            <button type="submit" name="btn_saida_submit" id="btn-saida">Registrar Saída</button>
-                        </form>
-                    </div>
+                <div class="search-area">
+                    <input type="text" placeholder="Pesquisar por Código, Produto ou Cor...">
+                    <button><i class="bi bi-search"></i> Pesquisar</button>
                 </div>
-
+                
+                <table class="table table-hover stock-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Produto</th>
+                            <th>Cor / Textura</th>
+                            <th>Peso/Litro</th>
+                            <th>Estoque Atual</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Tinta Acrílica Premium</td>
+                            <td>Branco Neve / Liso</td>
+                            <td>18 Litros</td>
+                            <td class="stock-status-cell">45</td>
+                            <td><span class="badge bg-success">Em Estoque</span></td>
+                            <td><button class="btn btn-sm btn-info"><i class="bi bi-pencil"></i> Editar</button></td>
+                        </tr>
+                        <tr class="low-stock-row">
+                            <td>2</td>
+                            <td>Argamassa AC-III</td>
+                            <td>Cinza / Granulada</td>
+                            <td>20 Kg</td>
+                            <td class="stock-status-cell low-stock">8</td>
+                            <td><span class="badge bg-danger">Baixo Estoque</span></td>
+                            <td><button class="btn btn-sm btn-info"><i class="bi bi-pencil"></i> Editar</button></td>
+                        </tr>
+                        
+                        </tbody>
+                </table>
+                
             </section>
         </main>
     </div>
@@ -102,14 +162,12 @@
             if (userName) {
                 userGreetingElement.textContent = `olá ${userName}`;
             } else {
-                // Redirecionamento de segurança para o login
                 window.location.href = '../pagina_login/index.php';
             }
         }
         
         loadUserName(); 
 
-        // Função de Logout
         logoutBtn.addEventListener('click', function() {
             localStorage.removeItem('userName');
             window.location.href = '../pagina_login/index.php';
