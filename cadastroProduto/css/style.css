@@ -74,7 +74,186 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }        /* Estilos específicos para a área de Entrada e Saída */
+        .forms-container {
+            display: flex;
+            gap: 40px;
+            justify-content: space-around;
+            margin-top: 30px;
         }
+        .form-box {
+            background-color: #3f3f3f; /* Fundo levemente mais claro */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 45%;
+        }
+        .form-box h3 {
+            color: #d8c8c8;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+        }
+        .form-box label {
+             display: block;
+             margin-bottom: 5px;
+             color: #ccc;
+             font-weight: bold;
+        }
+        .form-box input[type="text"],
+        .form-box input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #4a4a4a;
+            color: white;
+        }
+        .form-box button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #btn-entrada {
+            background-color: #4CAF50; /* Verde */
+            color: white;
+        }
+        #btn-entrada:hover {
+            background-color: #45a049;
+        }
+        #btn-saida {
+            background-color: #f44336; /* Vermelho */
+            color: white;
+        }
+        #btn-saida:hover {
+            background-color: #da190b;
+        }
+   /* =================================================== */
+        /* === ESTILOS GLOBAIS / RESET === */
+        /* =================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #2e2e2e; /* Cor de fundo principal escura */
+        }
+        
+        /* =================================================== */
+        /* === TELA DE GESTÃO (DASHBOARD) === */
+        /* =================================================== */
+        
+        /* CABEÇALHO */
+        .header {
+            background-color: #d8c8c8; 
+            padding: 15px 20px;
+            height: 80px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .dashboard-logo { /* Logo menor do dashboard */
+            background-color: white;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; 
+        }
+        .dashboard-logo img {
+            width: 113px;
+            border-radius: 50%; 
+            background-color: white; 
+            padding: 3px; 
+        }
+
+        .company-name {
+            font-size: 18px;
+            color: #333; 
+        }
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .user-greeting {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+        .logout-icon {
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* CONTEÚDO PRINCIPAL E SIDEBAR */
+        .main-content {
+            display: flex;
+            flex: 1; 
+        }
+        .sidebar {
+            width: 250px; 
+            background-color: #555; 
+            padding-top: 20px;
+            min-height: calc(100vh - 80px); 
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .menu-item {
+            margin-bottom: 2px;
+        }
+        .menu-item a {
+            display: block;
+            padding: 12px 15px;
+            color: #fff;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .menu-item a:hover {
+            background-color: #6a6a6a; 
+        }
+        /* Estilos do menu conforme imagem */
+        .sidebar ul li:nth-child(1) { background-color: #999999; }
+        .sidebar ul li:nth-child(2),
+        .sidebar ul li:nth-child(3) { background-color: #a8a8a8; }
+        
+        .menu-icon {
+            width: 30px; 
+            text-align: center;
+            margin-right: 10px;
+            font-size: 16px;
+            color: #333; 
+        }
+
+        .content-area {
+            flex: 1; 
+            padding: 20px;
+            background-color: #333; 
+            color: white; /* Cor do texto no dashboard */
+        }
+      
         .logo-area {
             display: flex;
             align-items: center;

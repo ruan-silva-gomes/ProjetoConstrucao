@@ -83,7 +83,7 @@
  
 <body>
     
-    <div id="dashboard-screen" class="container" style="display: flex; flex-direction: column; flex: 1;">
+    <div>
         <header class="header">
             <div class="logo-area">
                 <div class="dashboard-logo">

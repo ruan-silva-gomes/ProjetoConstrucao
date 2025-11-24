@@ -1,0 +1,160 @@
+/* =================================================== */
+/* === ESTILOS GLOBAIS / RESET === */
+/* =================================================== */
+
+/* O asterisco (*) seleciona TODOS os elementos da página */
+* {
+    margin: 0;   /* Remove margens padrão dos navegadores */
+    padding: 0;  /* Remove preenchimentos internos padrão */
+    box-sizing: border-box; /* Garante que o tamanho do elemento inclua borda e padding (evita quebrar layout) */
+}
+
+body {
+    font-family: Arial, sans-serif; /* Define a fonte principal */
+    height: 100vh; /* Define a altura do corpo como 100% da altura da tela (Viewport Height) */
+}
+
+/* =================================================== */
+/* === TELA DE FUNDO (BACKGROUND) === */
+/* =================================================== */
+
+#cadastro-screen {
+    background-color: #e6e6e6; /* Cor cinza claro de fundo da tela inteira */
+    
+    /* Configurações de Flexbox para centralizar a caixa branca */
+    display: flex;
+    flex-direction: column; /* Organiza os itens (caixa) em coluna vertical */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;     /* Centraliza horizontalmente */
+    
+    min-height: 100vh; /* Garante que o fundo cubra a tela toda, mesmo se o conteúdo crescer */
+    width: 100%;       /* Largura total */
+    padding: 20px;     /* Adiciona um espaço nas bordas para telas de celular (mobile) */
+}
+
+/* =================================================== */
+/* === O CARTÃO BRANCO (CONTAINER) === */
+/* =================================================== */
+
+.login-container {
+    width: 450px; /* Largura fixa do cartão */
+    background-color: white; /* Fundo branco */
+    border: 1px solid #c9c9c9; /* Borda cinza fina e sutil */
+    border-radius: 45px; /* Arredonda bastante os cantos do cartão */
+    
+    /* Sombra suave para dar efeito de elevação (profundidade) */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    padding: 40px; /* Espaço interno para o conteúdo não colar na borda */
+    
+    /* Flexbox interno para alinhar o logo, inputs e botões no centro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =================================================== */
+/* === LOGOTIPO CIRCULAR === */
+/* =================================================== */
+
+.login-logo {
+    background-color: white; 
+    border-radius: 50%; /* Faz a div ficar perfeitamente redonda */
+    width: 120px;
+    height: 120px;
+    
+    margin-bottom: 20px; /* Espaço abaixo do logo */
+    margin-top: -20px;   /* Margem negativa para "puxar" o logo um pouco para cima */
+    
+    /* Centraliza a imagem dentro do círculo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Sombra ao redor do círculo */
+    overflow: hidden; /* Corta qualquer parte da imagem que saia do círculo */
+}
+
+.login-logo img {
+    max-width: 150%;  /* Permite que a imagem seja maior que a caixa para ajustar o zoom */
+    max-height: 150%;
+    object-fit: contain; /* Ajusta a proporção da imagem */
+    border-radius: 50%;  /* Garante que a imagem também siga o formato redondo */
+    background-color: white; 
+    padding: 1px; 
+}
+
+/* =================================================== */
+/* === FORMULÁRIO E INPUTS === */
+/* =================================================== */
+
+.login-box {
+    width: 100%; /* A caixa do formulário ocupa toda a largura disponível no container */
+}
+
+#cadastroForm {
+    display: flex;
+    flex-direction: column; /* Empilha os inputs um embaixo do outro */
+    gap: 15px; /* Cria um espaço automático de 15px entre cada campo/botão */
+}
+
+/* Estilização comum para todos os campos de texto */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px 10px; /* Altura confortável para digitar */
+    border: none;       /* Remove a borda padrão feia do navegador */
+    background-color: #ededed; /* Fundo cinza claro no campo */
+    border-radius: 3px; /* Cantos levemente arredondados */
+    font-size: 16px;    /* Tamanho da letra */
+    color: #333;        /* Cor do texto digitado (cinza escuro) */
+}
+
+/* =================================================== */
+/* === BOTÕES === */
+/* =================================================== */
+
+/* Botão Principal (Cadastrar) */
+.submit-btn {
+    width: 60%; /* O botão ocupa 60% da largura do container */
+    margin: 20px auto 0; /* Margem superior de 20px e centralizado horizontalmente (auto) */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px; /* Botão bem redondo (pílula) */
+    font-size: 16px;
+    font-weight: bold;   /* Texto em negrito */
+    cursor: pointer;     /* Mãozinha ao passar o mouse */
+    background-color: #e0e0e0; /* Cor de fundo normal */
+    color: #666; /* Cor do texto */
+    transition: background-color 0.3s; /* Animação suave na troca de cor */
+}
+
+/* Efeito ao passar o mouse no botão principal */
+.submit-btn:hover {
+    background-color: #cccccc; /* Escurece um pouco o fundo */
+    color: #333; /* Escurece o texto */
+}
+
+/* Botão Secundário (Voltar) */
+.back-btn {
+    width: 50%; /* Um pouco menor que o botão de cadastro */
+    margin: 0px auto 0; /* Sem margem superior extra (colado no gap do form) */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #e0e0e0; /* Mesma cor do botão de cima */
+    color: #666;
+    transition: background-color 0.3s;
+}
+
+/* Efeito ao passar o mouse no botão voltar */
+.back-btn:hover {
+    /* Nota: border-color não funciona se border for 'none'. 
+       Aqui o efeito visível será a mudança de cor do texto */
+    border-color: #999; 
+    color: #555; /* Texto fica um pouco mais escuro */
+}

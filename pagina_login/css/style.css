@@ -1,4 +1,5 @@
-   /* =================================================== */
+
+        /* =================================================== */
         /* === ESTILOS GLOBAIS / RESET === */
         /* =================================================== */
         * {
@@ -82,9 +83,11 @@
             font-size: 16px;
             color: #333;
         }
+
+     /* Botão Principal (Login) */
         .submit-btn {
             width: 50%; 
-            margin: 20px auto 0;
+            margin: 0px auto 0;
             padding: 10px 20px;
             border: none;
             border-radius: 30px;
@@ -98,3 +101,24 @@
         .submit-btn:hover {
             background-color: #cccccc;
         }
+
+        /* === NOVO: Botão de Cadastro (Estilo Igual ao Login) === */
+        .register-btn {
+              width: 50%; 
+            margin: 2px auto 0;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #e0e0e0; 
+            color: #666;
+            transition: background-color 0.3s;
+        }
+        
+        .register-btn:hover {
+            background-color: #cccccc; /* Mesmo efeito de hover */
+            color: #666; /* Mantém a cor do texto */
+        }
+  
