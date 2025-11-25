@@ -154,27 +154,31 @@
         </main>
     </div>
 
-    <script>
+<script>
+        // 1. Seleciona os elementos do HTML
         const logoutBtn = document.getElementById('logoutBtn');
         const userGreetingElement = document.getElementById('userGreeting');
 
+        // 2. DEFINE a função (Cria a receita)
         function loadUserName() {
             const userName = localStorage.getItem('userName');
+            
             if (userName) {
                 userGreetingElement.textContent = `olá ${userName}`;
-            } else {
-                // Redirecionamento de segurança para o login
-                window.location.href = '../pagina_login/index.php';
-            }
+            } 
+            // OBS: Tirei o 'else' com redirecionamento para parar de recarregar a página sozinha
         }
         
+        // 3. EXECUTA a função
         loadUserName(); 
 
-        // Função de Logout
-        logoutBtn.addEventListener('click', function() {
-            localStorage.removeItem('userName');
-            window.location.href = '../pagina_login/index.php';
-        });
+        // 4. Configura o botão de "Sair/Voltar"
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                // Certifique-se que esse arquivo '../tabela.php' existe mesmo nesse local
+                window.location.href = '../pagina_login/index.php'; 
+            });
+        }
     </script>
 </body>
 </html>

@@ -134,27 +134,31 @@ input[type="password"] {
 .submit-btn:hover {
     background-color: #cccccc; /* Escurece um pouco o fundo */
     color: #333; /* Escurece o texto */
-}
+}   
+        /* Necessário para o botão ficar preso ao canto do cartão */
+        .login-container {
+            position: relative; 
+        }
 
-/* Botão Secundário (Voltar) */
-.back-btn {
-    width: 50%; /* Um pouco menor que o botão de cadastro */
-    margin: 0px auto 0; /* Sem margem superior extra (colado no gap do form) */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #e0e0e0; /* Mesma cor do botão de cima */
-    color: #666;
-    transition: background-color 0.3s;
-}
+        /* Estilo do X vermelho */
+        .botao-fechar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px; 
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
 
-/* Efeito ao passar o mouse no botão voltar */
-.back-btn:hover {
-    /* Nota: border-color não funciona se border for 'none'. 
-       Aqui o efeito visível será a mudança de cor do texto */
-    border-color: #999; 
-    color: #555; /* Texto fica um pouco mais escuro */
-}
+        .botao-fechar:hover {
+            background-color: #cc0000;
+        }
