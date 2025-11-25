@@ -1,47 +1,57 @@
 <?php
 /* -------------------------------------------------------------------------- */
-/* PARTE 1: BACKEND (PHP)                           */
+/* PARTE 1: BACKEND (PHP)                                                     */
 /* -------------------------------------------------------------------------- */
 
-// Verifica se o método é POST (ou seja, se o JavaScript enviou dados)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
 
-    // 1. Configurações do Banco de Dados
+    // CONFIGURAÇÕES DO BANCO (Preencha com seus dados)
     $host = 'localhost';
-    $db   = 'nome_do_seu_banco'; // <--- ATENÇÃO: COLOQUE O NOME DO SEU BANCO
-    $user = 'root';              // <--- SEU USUÁRIO
-    $pass = '';                  // <--- SUA SENHA
+    $db   = 'nome_do_seu_banco'; 
+    $user = 'root';              
+    $pass = '';                  
 
     try {
-        // Conexão
         $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // 2. Recebe os dados do JSON enviado pelo JS
+        // Recebe os dados do JavaScript
         $data = json_decode(file_get_contents('php://input'), true);
+        
         $email = $data['email'] ?? '';
         $senha = $data['password'] ?? '';
+        $nome  = $data['nome'] ?? ''; // Agora recebemos o nome também
 
-        // 3. Consulta segura no Banco
+        // Consulta buscando pelo Email
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // 4. Verifica a senha
-        // Nota: Se usar senhas criptografadas no futuro, use password_verify($senha, $usuario['senha'])
-        if ($usuario && $usuario['senha'] === $senha) {
-            echo json_encode(['success' => true, 'nome' => $usuario['nome']]);
+        // VALIDAÇÃO RIGOROSA:
+        // 1. Usuário foi encontrado pelo email?
+        // 2. A senha bate?
+        // 3. O nome é EXATAMENTE igual ao do banco?
+        if ($usuario && $usuario['senha'] === $senha && $usuario['nome'] === $nome) {
+            
+            echo json_encode([
+                'success' => true, 
+                'nome' => $usuario['nome']
+            ]);
+            
         } else {
-            echo json_encode(['success' => false, 'message' => 'Email ou senha incorretos!']);
+            // Se qualquer um dos 3 estiver errado, cai aqui
+            echo json_encode([
+                'success' => false, 
+                'message' => 'Nome, Email ou Senha incorretos!'
+            ]);
         }
 
     } catch (PDOException $e) {
         echo json_encode(['success' => false, 'message' => 'Erro no servidor: ' . $e->getMessage()]);
     }
 
-    // O 'exit' é crucial aqui para não carregar o HTML abaixo quando for uma requisição de login
-    exit;
+    exit; // Encerra o script para não mostrar o HTML
 }
 ?>
 
@@ -64,7 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="login-box">
                 <form id="loginForm">
-                    <input type="text" id="username" placeholder="Nome (Opcional):">
+                    
+                    <input type="text" id="username" placeholder="Nome:" required>
                     
                     <input type="email" id="email" placeholder="Email:" required>
                     <input type="password" id="password" placeholder="Senha:" required>
@@ -79,18 +90,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault(); 
             
+            // Pega os 3 valores
+            const nome = document.getElementById('username').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            
             const submitBtn = document.querySelector('.submit-btn');
 
-            // Feedback visual (desabilita botão enquanto carrega)
             submitBtn.disabled = true;
             submitBtn.textContent = 'Verificando...';
 
-            fetch('login.php', { // Envia para este mesmo arquivo
+            // Envia os 3 valores para o PHP
+            fetch('login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, password: password })
+                body: JSON.stringify({ 
+                    nome: nome,        // Enviando o nome
+                    email: email, 
+                    password: password 
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -98,15 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 submitBtn.textContent = 'Concluído';
 
                 if (data.success) {
-                    // Login com sucesso!
-                    
-                    // Salva o nome que veio DO BANCO no navegador
                     localStorage.setItem('userName', data.nome);
-                    
-                    // Redireciona
                     window.location.href = '../paginainicial/index.php'; 
                 } else {
-                    // Erro (Senha errada ou usuário não encontrado)
+                    // Mensagem de erro genérica para segurança, ou a que vem do PHP
                     alert(data.message); 
                 }
             })
@@ -119,4 +132,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     </script>
 </body>
-</html>
+</html> 
