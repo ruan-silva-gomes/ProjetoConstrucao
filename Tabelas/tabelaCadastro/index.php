@@ -1,10 +1,6 @@
 <?php
-// A base PHP para a lógica de back-end fica aqui.
-// Esta seção será usada mais tarde para buscar e exibir os dados do banco.
-
-// include_once '../conexao.php'; 
-// $produtos = []; // Array que conteria os dados buscados
-// ... lógica para buscar produtos e quantidade de estoque ...
+    session_start();
+    require_once("../conexao/conexao.php");
 ?>
 
 <!DOCTYPE html>

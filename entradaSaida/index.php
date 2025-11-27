@@ -1,9 +1,6 @@
 <?php
-// A base PHP para a lógica de back-end fica aqui.
-// Por enquanto, apenas o cabeçalho de PHP está incluso.
-
-// include_once '../conexao.php'; // Removido por enquanto
-// if ($_SERVER["REQUEST_METHOD"] == "POST") { ... } // Removido por enquanto
+    session_start();
+    require_once("../conexao/conexao.php");
 ?>
 
 <!DOCTYPE html>

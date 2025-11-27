@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once("../conexao/conexao.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
